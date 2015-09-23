@@ -39,7 +39,7 @@ public class Main {
 				i++;
 			}
 
-			// Instantiate anagram object based on the retrieval type
+			// Instantiate anagram object based on the retrieval type which further builds the dictionary in the constructor
 			anagram = type.equals(RetrievalType.SORTBASED) ? new SortBasedRetrieval(dictionaryFile)
 					: new HashBasedRetrieval(dictionaryFile);
 
@@ -76,7 +76,6 @@ public class Main {
 				+ "\t -dictFile <dictionary_path> \n"
 				+ "\nExample Usage 1 : java -cp . ai2.problem.Main -words tabs stab"
 				+ "\nExample Usage 2 : java -cp . ai2.problem.Main "
-				// windows path example
 				+ "-dictfile  ./dataset/dictionary.txt -retrievaltype HASHBASED -words tabs stab";
 		return message;
 	}

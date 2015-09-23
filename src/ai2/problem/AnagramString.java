@@ -10,16 +10,17 @@ import java.util.regex.Pattern;
 public final class AnagramString {
 
 	/*
-	 * Holds the actual string text being added to dictionary or being looked for anagrams
+	 * Holds the actual string text being added to dictionary or being looked
+	 * for anagrams
 	 */
 	private String anagramString;
-	
+
 	/*
-	 * Defines the retrieval type algorithm 
+	 * Defines the retrieval type algorithm
 	 */
 	private RetrievalType retrivalType;
 
-	public static Pattern lowercaseLetters = Pattern.compile("[a-z]+");
+	public static Pattern lowercaseLetters = Pattern.compile("[a-z|\\s+]+");
 	public static Pattern whitespace = Pattern.compile("\\s+");
 
 	public AnagramString(String str, RetrievalType type) {
@@ -31,10 +32,10 @@ public final class AnagramString {
 	 * Utility function for sorting characters of a string and converting it
 	 * back to a string
 	 */
-	public String sortCharacters() {
-		char[] letters = this.anagramString.toCharArray();
+	public int sortCharacters() {
+		char[] letters = this.anagramString.toLowerCase().toCharArray();
 		Arrays.sort(letters);
-		return String.valueOf(letters);
+		return String.valueOf(letters).hashCode();
 	}
 
 	/*
@@ -79,17 +80,21 @@ public final class AnagramString {
 		// Anagrams are case-insensitive so converting to lower case
 		int hash = 1;
 		for (char ch : this.anagramString.toLowerCase().toCharArray()) {
-			if (lowercaseLetters.matcher(String.valueOf(ch)).matches())
-				if (!whitespace.matcher(String.valueOf(ch)).matches())
+			if (lowercaseLetters.matcher(String.valueOf(ch)).matches()) {
+				if (!whitespace.matcher(String.valueOf(ch)).matches()) {
 					hash *= characterPrimeMap.get(Character.valueOf(ch));
-				else
-					System.out.println(String.format("Unidentified character %s is ignored.", ch));
+				}
+			} else {
+				System.out.println(String.format(
+						"Unidentified character %s is ignored.", ch));
+			}
 		}
 		return hash;
 	}
 
 	/*
 	 * overrides the equal method of HashMap for AnagramString type key objects
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj) {
@@ -104,13 +109,15 @@ public final class AnagramString {
 		// Check if the retrieval mechanism of the object is compatible with
 		// object being checked against in the HashMap
 		if (((AnagramString) obj).retrivalType != this.retrivalType) {
-			System.out.println(String.format("Incompatible retrieval types. Expected: %s Found: %s", this.retrivalType,
-					((AnagramString) obj).retrivalType));
+			System.out.println(String.format(
+					"Incompatible retrieval types. Expected: %s Found: %s",
+					this.retrivalType, ((AnagramString) obj).retrivalType));
 		} else {
-			if (this.retrivalType == RetrievalType.HASHBASED){
+			if (this.retrivalType == RetrievalType.HASHBASED) {
 				return (((AnagramString) obj).getHash() == this.getHash());
 			} else {
-				return (((AnagramString) obj).sortCharacters().equals(this.sortCharacters()));
+				return (((AnagramString) obj).sortCharacters() == this
+						.sortCharacters());
 			}
 		}
 
@@ -118,10 +125,16 @@ public final class AnagramString {
 	}
 
 	/*
-	 * Returns custom hash values in the hashCode method of HashMap for AnagramString type key objects
+	 * Returns custom hash values in the hashCode method of HashMap for
+	 * AnagramString type key objects
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	public int hashCode() {
-		return this.getHash();
+		if (this.retrivalType == RetrievalType.SORTBASED) {
+			return this.sortCharacters();
+		} else {
+			return this.getHash();
+		}
 	}
 }
