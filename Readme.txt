@@ -1,8 +1,9 @@
 Find all the Anagrams of a given word from an available dictionary
 
 1.) cd <FindAnagrams>
-2.) javac -d ./bin/ ./src/ai2.problem/*.java
-2.) java -cp ./bin/ ai2.problem.Main -dictFile <dictionary_path> -retrievaltype [HASHBASED | SORTBASED] -words [<list of words>]
+2.) mkdir bin
+3.) javac -d bin/ src/ai2/problem/*.java
+4.) java -cp ./bin/ ai2.problem.Main -dictFile <dictionary_path> -retrievaltype [HASHBASED | SORTBASED] -words [<list of words>]
 
 This problem can be approached in two ways-
 

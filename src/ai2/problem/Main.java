@@ -77,7 +77,7 @@ public class Main {
 				+ "\nExample Usage 1 : java -cp . ai2.problem.Main -words tabs stab"
 				+ "\nExample Usage 2 : java -cp . ai2.problem.Main "
 				// windows path example
-				+ "-dictfile  .\\..\\dataset\\dictionary.txt -retrievaltype HASHBASED -words tabs stab";
+				+ "-dictfile  ./dataset/dictionary.txt -retrievaltype HASHBASED -words tabs stab";
 		return message;
 	}
 }
