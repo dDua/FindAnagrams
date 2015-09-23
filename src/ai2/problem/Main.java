@@ -7,7 +7,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// Default dictionary path. Can also be provided in command-line arguments
-		File dictionaryFile = new File(".\\..\\dataset\\dictionary.txt");
+		File dictionaryFile = new File("./dataset/dictionary.txt");
 
 		if (args.length <= 1) {
 			System.out.println(getUsageString());

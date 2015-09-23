@@ -107,10 +107,9 @@ public final class AnagramString {
 			System.out.println(String.format("Incompatible retrieval types. Expected: %s Found: %s", this.retrivalType,
 					((AnagramString) obj).retrivalType));
 		} else {
-			switch (this.retrivalType) {
-			case HASHBASED:
+			if (this.retrivalType == RetrievalType.HASHBASED){
 				return (((AnagramString) obj).getHash() == this.getHash());
-			case SORTBASED:
+			} else {
 				return (((AnagramString) obj).sortCharacters().equals(this.sortCharacters()));
 			}
 		}
