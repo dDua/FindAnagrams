@@ -27,9 +27,11 @@ For instance, "tabs" is 71*2*3*67 = 28542
 This approach is very fast as as it requires O(n) time to map the word to hash so the total complexity to building dictionary is O(n*|dictionary size|) and space complexity is O(|dictionary size|).
 For each lookup during the test phase it would need O(n) time to map teh string to hashcode and then looking up in dictionary is O(1).
 If we need to retrieve anagrams from the dictionary frequently or the strings indexed in dictionary are significantly longer then O(n) will perform better over O(nlogn). 
-However, it being a hashing technique their are standard problems of collisions which are reduced by using prime number but can still happen so can't be ignored. 
+However, it being a hashing technique their are standard problems of collisions which are reduced by using prime number but can still happen especially when the product of primes overflows int range and rotates back to negative range, so can't be ignored. 
 This can lead to multiple strings hashing to same hashkey so it can be a bit less accurate. We can use different collision detection techniques to solve this problem which might increase the time complexity in worst case scenario depending on collsion resolution technique.
-	
+Currently, it handles only alphabets if there are special charcters like "tabs!" the ! is ignored and anagrams for "tabs" are returned. All the special symbols can be either pre-assigned prime numbers by using a prime number generator in the intializer once or can be added to the map as and when they are seen.
+As of now a static map has been kept for all alphabets as prime-number generator are computationally intensive. 
+
 	
 Note:-
 1.) Anagrams are independent of letter case and spaces in the string so that has been ignored in the code.

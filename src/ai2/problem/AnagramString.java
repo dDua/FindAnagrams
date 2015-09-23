@@ -22,6 +22,43 @@ public final class AnagramString {
 
 	public static Pattern lowercaseLetters = Pattern.compile("[a-z|\\s+]+");
 	public static Pattern whitespace = Pattern.compile("\\s+");
+	
+	//Prime numbers for all symbols can also be pre-generated programatically and
+	//appended to this map as and when a new symbol is seen. As of now the special symbols 
+	//are ignored while hashing as prime-number generator is a computationally heavy task
+	//so its better to pre-compute prime numbers for all special symbols or do an incremental 
+	//computation for new ones.
+	public static HashMap<Character, Integer> characterPrimeMap = new HashMap<Character, Integer>() {
+		{
+			put('a', 2);
+			put('b', 3);
+			put('c', 5);
+			put('d', 7);
+			put('e', 11);
+			put('f', 13);
+			put('g', 17);
+			put('h', 19);
+			put('i', 23);
+			put('j', 29);
+			put('k', 31);
+			put('l', 37);
+			put('m', 41);
+			put('n', 43);
+			put('o', 47);
+			put('p', 53);
+			put('q', 59);
+			put('r', 61);
+			put('s', 67);
+			put('t', 71);
+			put('u', 73);
+			put('v', 79);
+			put('w', 83);
+			put('x', 89);
+			put('y', 97);
+			put('z', 101);
+		}
+	};
+
 
 	public AnagramString(String str, RetrievalType type) {
 		this.anagramString = str;
@@ -41,42 +78,10 @@ public final class AnagramString {
 	/*
 	 * Utility function for computing the hash of a string. The hash is computed
 	 * as product of prime number representation of each character. The prime
-	 * can be found programmatically but this function will be called multiple
-	 * times so better to use a HashMap and pre-assign the primes to individual
-	 * characters
+	 * can be found programmatically but for now a static map of characters and primes
+	 * has been pre-assigned.
 	 */
 	public int getHash() {
-		HashMap<Character, Integer> characterPrimeMap = new HashMap<Character, Integer>() {
-			{
-				put('a', 2);
-				put('b', 3);
-				put('c', 5);
-				put('d', 7);
-				put('e', 11);
-				put('f', 13);
-				put('g', 17);
-				put('h', 19);
-				put('i', 23);
-				put('j', 29);
-				put('k', 31);
-				put('l', 37);
-				put('m', 41);
-				put('n', 43);
-				put('o', 47);
-				put('p', 53);
-				put('q', 59);
-				put('r', 61);
-				put('s', 67);
-				put('t', 71);
-				put('u', 73);
-				put('v', 79);
-				put('w', 83);
-				put('x', 89);
-				put('y', 97);
-				put('z', 101);
-			}
-		};
-
 		// Anagrams are case-insensitive so converting to lower case
 		int hash = 1;
 		for (char ch : this.anagramString.toLowerCase().toCharArray()) {
@@ -94,7 +99,6 @@ public final class AnagramString {
 
 	/*
 	 * overrides the equal method of HashMap for AnagramString type key objects
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj) {
@@ -126,8 +130,7 @@ public final class AnagramString {
 
 	/*
 	 * Returns custom hash values in the hashCode method of HashMap for
-	 * AnagramString type key objects
-	 * 
+	 * AnagramString type key objects 
 	 * @see java.lang.Object#hashCode()
 	 */
 	public int hashCode() {
