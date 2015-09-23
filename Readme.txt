@@ -20,7 +20,7 @@ It can be improved with Counting Sort to O(n) but if the words are very long, sa
 	
 This approach has high accuracy as it will always return the exact list of anagrams.
 
-1.) Low Response Time
+2.) Low Response Time
  
 The idea here is to map every word to an integer value with a hash-function. The hash-function used is the product of individual characters in the word mapped to distinct prime numbers.
 For instance, "tabs" is 71*2*3*67 = 28542
@@ -43,3 +43,4 @@ SortBasedRetrieval.java and HashBaseRetrieval.java - two different retrieval mec
 Dictionary.java - singleton implementation of the dictionary object, so that all AnagramString objects lookup the same dictionary.
 AnagramString.java - encapsulated the strings given in dictionary and override the equals() and hashCode() method for accumulating anagrams in the dictionary object.
 Main.java - driver programs that parses the command-line and looks up for anagrams of the string.
+RetrievalType.java - enum which defines different retrieval modes
